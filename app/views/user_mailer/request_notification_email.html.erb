@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h1>Hi <%= @owner.name %>,</h1>
+    You have a requst from <%= @requester.name %>.
+    <p>
+      To respond to this request, just follow this link: <%= @url %>.
+    </p>
+    <p>
+      To see all of your requests, visit this link: <%= @user_show_url %>.
+    </p>
+
+    <p>
+      Thanks!<br />
+      The RAC Server
+    </p>
+
+  </body>
+</html>

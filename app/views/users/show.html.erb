@@ -1,0 +1,62 @@
+<p>
+  <span id='title'> <%=h @user.name %> </span> <%= link_to 'logout', logout_path %> | <%= link_to 'edit profile', url_for(:controller => 'users', :action => 'edit', :id => @user.id)%> 
+  <br />
+<hr />
+<p>
+  <% if @requests_given.size == 0 %>
+    <h3>No one has requested data from you.</h3>
+  <% else %> 
+      <h3>Requests Given  </h3>
+      <table style="padding:0px;border-spacing:8px;" >
+        <thead>
+          <tr>
+            <th>Requester</th>
+
+            <th>Content</th>
+
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody> 
+          <% @requests_given.each do |r| %>
+            <tr>
+                <td> <%= r.requester.name %> </td>
+                <td><%= r.content.name %> </td>
+                <td><%= r.get_status %> </td>
+                <td><%= link_to "respond", url_for(:controller => 'requests', :action => 'edit', :id => r.id) %>
+            <tr>
+          <% end %>
+        </tbody>
+      </table>
+  <% end %>
+</p>
+<hr />
+<p>
+  <% if @requests_made.size == 0 %>
+    <h3>You have not made any requests.</h3>
+  <% else %>
+      <h3>Requests Made </h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Owner of Content</th>
+
+            <th>Content</th>
+
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody> 
+          <% @requests_made.each do |r| %>
+            <tr>
+                <td> <%= r.content_owner.name %>  </td>
+                <td style="text-align:left;"><%= r.content.name %> </td>
+                <td style="text-align:right;"><%= r.get_status %> </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+  <% end %>
+</p>
+
+

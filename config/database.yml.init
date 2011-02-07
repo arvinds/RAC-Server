@@ -1,0 +1,8 @@
+development:
+  adapter: mysql2
+  database: 
+  username: 
+  password: 
+  charset: utf8
+  collation: utf8_bin
+

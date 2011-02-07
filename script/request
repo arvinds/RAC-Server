@@ -1,0 +1,17 @@
+#!/bin/bash
+
+time
+
+wget \
+--output-document - \
+--post-data="` ruby -e \"require \\"rubygems\\"; require \\"json\\"; puts({:owner_guid=>1,:requester_guid=>2,:action_id=>1,:content_name =>\\"email_one\\",:content_guid=>\\"f02c62d1c9490f2a977bcba2d91b8237b6b629d5\\"}.to_json) \" ` " \
+--header='Content-Type: application/json' \
+"http://saucers.cups.cs.cmu.edu:3000/requests" > tmp/response
+
+
+wget \
+--output-document - \
+--post-data="` ruby -e \"require \\"rubygems\\"; require \\"json\\"; puts({:owner_guid=>1,:requester_guid=>2,:action_id=>2,:content_name =>\\"email_two\\",:content_guid=>\\"a0cf8c4841a448f3527b54eae7306ba03e0ec3e8\\"}.to_json) \" ` " \
+--header='Content-Type: application/json' \
+"http://saucers.cups.cs.cmu.edu:3000/requests" >> tmp/response
+

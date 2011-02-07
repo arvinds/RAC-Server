@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  guid: 1
+  last_name: MyString
+  first_name: MyString
+  email: MyString
+  persistence_token: MyString
+  password_salt: MyString
+
+two:
+  guid: 1
+  last_name: MyString
+  first_name: MyString
+  email: MyString
+  persistence_token: MyString
+  password_salt: MyString

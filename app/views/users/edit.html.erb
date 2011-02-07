@@ -1,0 +1,10 @@
+<h1>Edit My Account</h1>
+
+<%= form_for @user, :as => :user, :url =>{:action => "update"} do |f| %>
+  <%= errors_for(@user, "Opps, unable to add new user").html_safe %>
+
+  <%= render :partial => "form", :object => f %>
+  <%= f.submit "Update" %>
+<% end %>
+
+<br /><%= link_to "My Profile", user_path(@user) %>

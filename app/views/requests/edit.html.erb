@@ -1,0 +1,31 @@
+<h2>Respond to Request</h3>
+
+<table>
+    <tr>
+      <td><h5>From</td> <td style="padding-left: 15px;"><%= @request.requester.name + " (#{@request.requester.email})" %> </h5> </td>
+    </tr>
+    <tr>
+      <td><h5>Content<br /> Requested</td><td style="padding-left: 15px;"> <%= "#{@request.content.name} (#{@request.content.guid})" %> </h5></td>
+    </tr>
+    <tr>
+      <td><h5>Access<br /> Requested </td><td style="padding-left: 15px;"> <%= @request.action.name %> </h5></td>
+    </tr>
+</table>
+
+<h3>Select a response:</h3>
+<%= form_for @request, :as => :request, :url =>{:action => "update"} do |f| %>
+
+  <table>
+      <% ['Ignore  ', 'Approve', 'Reject '].each_with_index do |option,i| %>
+        <tr>
+          <td><br /><%=option%><br/>  </td>  <td><%=  radio_button_tag 'response', i+1,true %></td>
+        </tr>
+      <% end %> 
+  </table>
+      <input type=hidden value=<%=@request.id%> name=id />
+      <br />
+      <br />
+  <input type="submit" value="Save Response" /> 
+<% end %>
+
+<br /><%= link_to "Cancel", user_path(@user) %>
