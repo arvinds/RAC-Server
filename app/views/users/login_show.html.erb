@@ -1,0 +1,17 @@
+<div style="text-align:center;height:800px;">
+  <div style="position:relative;top:0%;">
+    
+    <h1>Create an Account</h1>
+    <br/><br/>
+    <% if flash[:notice] -%>
+      <div id="notice"><%= flash[:notice] %></div>
+
+      <br/>
+    <% end -%>
+
+    <%=link_to "Via Facebook", "/fb" %>&nbsp|
+    <%=
+      link_to "On the RAC Serer", "/users/new"
+    %>
+  <div>
+</div>

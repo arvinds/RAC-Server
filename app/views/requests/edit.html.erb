@@ -1,31 +1,120 @@
-<h2>Respond to Request</h3>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<style type='text/css'>
+.mask{
+   position: relative;
+   overflow: hidden;
+   margin: 0px auto;
+   width: 100%;
+}
+.colleft{
+   position: relative;
+   width: 100%;
+   right: 54%;
+}
+.col1{
+   position: relative;
+   overflow: auto;
+   float: left;
+   width: 65%;
+   left: 92%;
+}
+.col2{
+   position: relative;
+   overflow: auto;
+   float: left;
+   width: 35%;
+   left: -10%;
+}
 
-<table>
-    <tr>
-      <td><h5>From</td> <td style="padding-left: 15px;"><%= @request.requester.name + " (#{@request.requester.email})" %> </h5> </td>
-    </tr>
-    <tr>
-      <td><h5>Content<br /> Requested</td><td style="padding-left: 15px;"> <%= "#{@request.content.name} (#{@request.content.guid})" %> </h5></td>
-    </tr>
-    <tr>
-      <td><h5>Access<br /> Requested </td><td style="padding-left: 15px;"> <%= @request.action.name %> </h5></td>
-    </tr>
-</table>
+body {
+   padding: 0px;
+   margin: 0px;
+/*   font-size: 90%; */
+}
+</style>
 
-<h3>Select a response:</h3>
-<%= form_for @request, :as => :request, :url =>{:action => "update"} do |f| %>
+<div class="mask">
+    <div class="colleft">
+        <div class="col1">
 
-  <table>
-      <% ['Ignore  ', 'Approve', 'Reject '].each_with_index do |option,i| %>
-        <tr>
-          <td><br /><%=option%><br/>  </td>  <td><%=  radio_button_tag 'response', i+1,true %></td>
-        </tr>
-      <% end %> 
-  </table>
-      <input type=hidden value=<%=@request.id%> name=id />
-      <br />
-      <br />
-  <input type="submit" value="Save Response" /> 
-<% end %>
+            <div style="float:left; margin-top: 50px;">
+              <h4>Privacy Reputation Score </h4> 
+              <p style="width:640px;">While taking your decision you can rely on recommendations provided by the  FORPS system (Friends-Oriented Reputation Privacy Score) that aggregates different sources of information characterizing the behavior and the profile of the data requester. <br/><br/><br/>
+              </p>
+              <div id="iframewrap">
+                <a href="#" onclick="$('#iframewrap').html('<iframe src=\'http://159.217.144.119/forps/?req_id=<%=@request.requester.fbid || 1467487793 %>\' style=\'border: 0px; width: 650px; height:540px; padding:0; margin:0;\'>Please use a browser that supports iFrames!</iframe>');">Activate FORPS System</a>
+              </div>
 
-<br /><%= link_to "Cancel", user_path(@user) %>
+            </div>
+
+
+        </div>
+        <div class="col2">
+
+          <div style="">
+                <h2>Respond to Request</h3>
+        <!-- This UI (both code and presentation) isnt pretty but it gets the job done for the prototype. -->
+                <table>
+                    <tr>
+                      <td><h5>From</td> <td style="padding-left: 15px;"><%= @request.requester.name + " (#{@request.requester.email})" %> </h5> </td>
+                    </tr>
+                    <tr>
+                      <td><h5>Content<br /> Requested</td><td style="padding-left: 15px;"> <%= "#{@request.content.name}" %> <span style='font-size:7px'> <br/> <%="(#{@request.content.guid})" %> </span></h5></td>
+                    </tr>
+                    <tr>
+                      <td><h5>Content<br /> Metadata</td><td style="padding-left: 15px;"> <%= "#{@request.content.metadata}"%> </h5></td>
+                    </tr>
+                    <tr>
+                      <td><h5>Access<br /> Requested </td><td style="padding-left: 15px;"> <%= @request.action %> </h5></td>
+                    </tr>
+                </table>
+
+                <h3>Select a response:</h3>
+                <%= form_for @request, :as => :request, :url =>{:action => "update"} do |f| %>
+
+                  <table>
+                      <% ['Ignore  ', 'Approve', 'Reject '].each_with_index do |option,i| %>
+                        <tr>
+                          <% bool = false %>
+                          <% bool = @request.status == i+1 unless @request.status.nil? %>
+                          <td><br /><%=option%><br/>  </td>  <td><%=  radio_button_tag 'response', i+1, bool %></td>
+                        </tr>
+                      <% end %> 
+                      <tr>
+                        <td>
+                          Obligation Text: 
+                        </td>
+                        <td>
+                          <br/>
+                          <% t = "" %>
+                          <% t = @request.obligation_text unless @request.obligation_text.nil? %>
+                          <%= text_area_tag "obligation_text", t %>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          Obligation Date: 
+                        </td>
+                        <td>
+                          <% d = DateTime.now %>
+                          <% d = @request.obligation_date unless @request.obligation_date.nil? %>
+                         <!-- <%#= calendar_date_select_tag "obligation_date", d.strftime("%B %d, %Y %I:%M %p"), :time => true, :size=> 25  %> -->
+                          <input type="text" value="May 28, 2011 12:19 PM" />
+                        </td>
+                      </tr>
+
+                  </table>
+
+                      <input type=hidden value=<%=@request.id%> name=id />
+                      <br />
+                      <br />
+                  <input type="submit" value="Save Response" /> 
+                <% end %>
+
+                <br /><%= link_to "Cancel", user_path(@user) %>
+            </div>
+
+
+        </div> 
+    </div> 
+</div>

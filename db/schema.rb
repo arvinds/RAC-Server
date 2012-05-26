@@ -10,20 +10,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110203074126) do
-
-  create_table "actions", :force => true do |t|
-    t.string   "name"
-    t.string   "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(:version => 20110504155858) do
 
   create_table "contents", :force => true do |t|
     t.string   "guid"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name",       :null => false
+    t.string   "metadata"
   end
 
   create_table "requests", :force => true do |t|
@@ -33,19 +27,24 @@ ActiveRecord::Schema.define(:version => 20110203074126) do
     t.integer  "requester_id",     :null => false
     t.integer  "content_owner_id", :null => false
     t.integer  "content_id",       :null => false
-    t.integer  "action_id",        :null => false
+    t.string   "action",           :null => false
+    t.string   "obligation_text"
+    t.string   "guid"
+    t.datetime "obligation_date"
   end
 
   create_table "users", :force => true do |t|
-    t.integer  "guid"
-    t.string   "last_name",         :null => false
-    t.string   "first_name",        :null => false
-    t.string   "email",             :null => false
-    t.string   "persistence_token", :null => false
-    t.string   "password_salt",     :null => false
+    t.string   "guid",                             :null => false
+    t.string   "last_name",                        :null => false
+    t.string   "first_name",                       :null => false
+    t.string   "persistence_token",                :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "crypted_password",  :null => false
+    t.string   "email"
+    t.string   "password"
+    t.string   "crypted_password"
+    t.integer  "user_type",         :default => 0
+    t.string   "fbid"
   end
 
 end

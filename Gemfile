@@ -6,8 +6,12 @@ gem 'rails', '3.0.3'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 
-gem 'mysql2'
+gem 'mysql2', '< 0.3'
+gem 'calendar_date_select'
 gem 'authlogic'
+gem 'mechanize'
+gem 'json'
+#gem "authlogic-oid", :git=>'git://github.com/binarylogic/authlogic_openid.git'
 
 
 # Use unicorn as the web server

@@ -1,4 +1,4 @@
-<h1>Login</h1>
+<h1>Login Using a RAC Server Account</h1>
 <%= form_for @user_session, :as => :user_session, :url =>{:action => "create"} do |f| %>
 
   <%= errors_for(@user_session, "Opps, unable to add new user").html_safe %>
@@ -14,4 +14,7 @@
  <%= f.submit "Login" %>
 <% end %>
 <br/>
-Not a user? <%= link_to "Register", new_user_path %>
+Not a user? <%= link_to "Register", register_path %>
+<br/>
+<br/>
+<%= link_to "Back to landing page", landing_path %>

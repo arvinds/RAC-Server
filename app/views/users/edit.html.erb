@@ -1,5 +1,8 @@
 <h1>Edit My Account</h1>
-
+<br/>
+<%= "Please set your User ID before continuing." if @user.guid == "" %>
+<br/>
+<br/>
 <%= form_for @user, :as => :user, :url =>{:action => "update"} do |f| %>
   <%= errors_for(@user, "Opps, unable to add new user").html_safe %>
 

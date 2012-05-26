@@ -1,12 +1,15 @@
+<% if flash[:notice] -%>
+  <div id="notice"><%= flash[:notice] %></div>
+<% end -%> 
 <p>
-  <span id='title'> <%=h @user.name %> </span> <%= link_to 'logout', logout_path %> | <%= link_to 'edit profile', url_for(:controller => 'users', :action => 'edit', :id => @user.id)%> 
+  <span id='title'> <%=h @user.name %> </span> <%= link_to 'logout', logout_path %> | <%= link_to 'edit profile', url_for(:controller => 'users', :action => 'edit', :id => @user.id)%> | <%= link_to 'delete profile', user_path(@user), :confirm => 'Are you sure?', :method => :delete %>
   <br />
 <hr />
 <p>
   <% if @requests_given.size == 0 %>
     <h3>No one has requested data from you.</h3>
   <% else %> 
-      <h3>Requests Given  </h3>
+      <h3>Requests <!--Given-->  </h3>
       <table style="padding:0px;border-spacing:8px;" >
         <thead>
           <tr>
@@ -15,6 +18,14 @@
             <th>Content</th>
 
             <th>Status</th>
+
+            <th >Image</th>
+
+            <th>Obligation Text</th>
+            
+            <th>Obligation Date </th>
+
+            <th ></th>
           </tr>
         </thead>
         <tbody> 
@@ -23,7 +34,16 @@
                 <td> <%= r.requester.name %> </td>
                 <td><%= r.content.name %> </td>
                 <td><%= r.get_status %> </td>
-                <td><%= link_to "respond", url_for(:controller => 'requests', :action => 'edit', :id => r.id) %>
+                <td style="text-align:center;"><%= link_to image_tag("#{r.id}.gif", :size => "20x20"), "/images/#{r.id}.gif"  %></td>
+                <td style="text-align:center;"><%= r.obligation_text %> </td>
+                <td style="text-align:center;"><%= r.obligation_date.strftime("%B %d, %Y %I:%M %p") unless r.obligation_date.nil? %> </tx>
+
+                    <% if r.status.nil? %>
+                      <% verb = "respond to request" %>
+                    <% else %>
+                      <% verb = "edit response"  %>
+                    <% end %>
+                <td><%= link_to verb, url_for(:controller => 'requests', :action => 'edit', :id => r.id) %>
             <tr>
           <% end %>
         </tbody>
@@ -31,12 +51,13 @@
   <% end %>
 </p>
 <hr />
+<% if false %>
 <p>
   <% if @requests_made.size == 0 %>
     <h3>You have not made any requests.</h3>
   <% else %>
       <h3>Requests Made </h3>
-      <table>
+      <table style="padding:0px;border-spacing:8px;">
         <thead>
           <tr>
             <th>Owner of Content</th>
@@ -44,6 +65,10 @@
             <th>Content</th>
 
             <th>Status</th>
+
+            <th>Obligation</th>
+
+            <th>Image</th>
           </tr>
         </thead>
         <tbody> 
@@ -52,6 +77,10 @@
                 <td> <%= r.content_owner.name %>  </td>
                 <td style="text-align:left;"><%= r.content.name %> </td>
                 <td style="text-align:right;"><%= r.get_status %> </td>
+                <td style="text-align:right;"><%= r.obligation %> </td>
+                <% if false %>
+                  <td style="text-align:center;"><%= link_to image_tag("#{r.id}.gif", :size => "20x20"), "/images/#{r.id}.gif"  %></td>
+                <% end %>
             </tr>
           <% end %>
         </tbody>
@@ -59,4 +88,4 @@
   <% end %>
 </p>
 
-
+<% end %>

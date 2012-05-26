@@ -1,0 +1,8 @@
+development:
+  adapter: mysql2
+  database: diasporatestdb 
+  username: diasporauser
+  password: RBYf3VrAjcxfJu
+  charset: utf8
+  collation: utf8_bin
+

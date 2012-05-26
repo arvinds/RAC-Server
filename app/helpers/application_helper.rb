@@ -2,7 +2,7 @@ module ApplicationHelper
 
  def errors_for(object, message=nil)
     html = ""
-    unless object.errors.blank?
+    unless object.errors.nil? || object.errors.blank?
       html << "<div class='formErrors #{object.class.name.humanize.downcase}Errors'>\n"
       if message.blank?
         if object.new_record?

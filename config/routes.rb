@@ -1,4 +1,5 @@
 RacServer::Application.routes.draw do
+
   resources :requests
 
   resources :contents
@@ -6,14 +7,25 @@ RacServer::Application.routes.draw do
   resources :user_sessions
 
   resources :users
-  
+
   match 'login' => "user_sessions#new", :as => :login
 
   match 'logout' => "user_sessions#destroy", :as => :logout
 
   match 'register' => "users#new", :as => :register
-  
+
+  match 'create_user' => "users#createuser"
+
+  match 'fb' => "user_sessions#fb"
+
+  match 'status' => "requests#show"
+
+  match 'landing' => "user_sessions#landing", :as => :landing
+
+  match 'login_show' => "users#login_show", :as => :register
+
   root :to => "users#show"
+
 
 
   # The priority is based upon order of creation:
